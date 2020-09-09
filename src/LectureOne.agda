@@ -46,7 +46,8 @@ record Monoid (A : Set) : Set₁ where
     identityˡ x = refl
 
     identityʳ : ∀ (x : ℕ) → x + 0 ≡ x
-    identityʳ x = {!!}
+    identityʳ zero = refl
+    identityʳ (suc x) = cong suc (identityʳ x)
 
 -- Exercise 2 (**): Prove that lists form a monoid under '++' and '[]'
 ++-monoid : (A : Set) → Monoid (List A)
