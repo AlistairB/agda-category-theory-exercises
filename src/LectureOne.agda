@@ -68,7 +68,7 @@ _+++_ n (suc m) = suc (n +++ m)
   where
     assoc : ∀ (x y z : ℕ) → (x + y) + z ≡ x + (y + z)
     assoc zero y z = refl
-    assoc (suc x) y z =  cong suc (assoc x y z)
+    assoc (suc x) y z = cong suc (assoc x y z)
 
     identityˡ : ∀ (x : ℕ) → 0 + x ≡ x
     identityˡ x = refl
@@ -88,13 +88,15 @@ _+++_ n (suc m) = suc (n +++ m)
   }
   where
     assoc : ∀ (xs ys zs : List A) → (xs ++ ys) ++ zs ≡ xs ++ (ys ++ zs)
-    assoc xs yz zs = {!!}
+    assoc [] ys zs = refl
+    assoc (x ∷ xs) ys zs = cong (x ∷_) (assoc xs ys zs)
 
     identityˡ : ∀ (xs : List A) → [] ++ xs ≡ xs
-    identityˡ xs = {!!}
+    identityˡ xs = refl
 
     identityʳ : ∀ (xs : List A) → xs ++ [] ≡ xs
-    identityʳ xs = {!!}
+    identityʳ [] = refl
+    identityʳ (x ∷ xs) = cong (x ∷_) (identityʳ xs)
 
 -- Note: So far, we have been using Agda's "propositional equality", which states that
 -- two things are equal when they are /literally/ the same term. This works great for things
