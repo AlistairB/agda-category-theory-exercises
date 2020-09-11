@@ -142,10 +142,11 @@ length-homo A = record
   where
 
     ∙-homo : ∀ (xs ys : List A) → length (xs ++ ys) ≡ length xs + length ys
-    ∙-homo xs ys = {!!}
+    ∙-homo [] ys = refl
+    ∙-homo (_ ∷ xs) ys = cong (1 +_) (∙-homo xs ys)
 
     ε-homo : length {A = A} [] ≡ 0
-    ε-homo = {!!}
+    ε-homo = refl
 
 
 -- Exercise 4 (***): Show that we have a homomorphisms from
