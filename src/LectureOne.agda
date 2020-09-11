@@ -27,6 +27,34 @@ record Monoid (A : Set) : Set₁ where
     identityˡ : ∀ {x} → ε ∙ x ≡ x
     identityʳ : ∀ {x} → x ∙ ε ≡ x
 
+-- _+++_ : ℕ → ℕ → ℕ
+-- _+++_ zero m = m
+-- _+++_ (suc n) m = suc (n +++ m)
+
+_+++_ : ℕ → ℕ → ℕ
+_+++_ n zero = n
+_+++_ n (suc m) = suc (n +++ m)
+
++++-monoid : Monoid ℕ
++++-monoid = record
+  { _∙_ = _+++_
+  ; ε = 0
+  ; assoc = λ {x y z} → assoc x y z
+  ; identityˡ = λ {x} → identityˡ x
+  ; identityʳ = λ {x} → identityʳ x
+  }
+  where
+    assoc : ∀ (x y z : ℕ) → (x +++ y) +++ z ≡ x +++ (y +++ z)
+    assoc x y zero = refl
+    assoc x y (suc z) =  cong suc (assoc x y z)
+
+    identityˡ : ∀ (x : ℕ) → 0 +++ x ≡ x
+    identityˡ zero = refl
+    identityˡ (suc x) = cong suc (identityˡ x)
+
+    identityʳ : ∀ (x : ℕ) → x +++ 0 ≡ x
+    identityʳ x = refl
+
 -- Exercise 1 (*): Prove that '0' is the right-identity to +
 -- HINT: 'cong' lets us take a proof that 'x ≡ y', and show that 'f x ≡ f y'
 +-monoid : Monoid ℕ
