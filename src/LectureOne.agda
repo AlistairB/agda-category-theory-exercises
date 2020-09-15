@@ -155,9 +155,9 @@ length-homo A = record
 cayley : ∀ {A} (M : Monoid A) → MonoidHomomorphism M (∘-monoid A)
 cayley M = record
   { ⟦_⟧ = λ x → x ∙_
-  ; ⟦⟧-cong = λ {x y} x≈y → fun-ext λ z → cong₂ _∙_ x≈y refl
-  ; ∙-homo = λ {x y} → fun-ext λ z → assoc
-  ; ε-homo = fun-ext (λ _ → identityˡ)
+  ; ⟦⟧-cong = λ {x y} x≈y → {!!}
+  ; ∙-homo = λ {x y} → {!!}
+  ; ε-homo = {!!}
   }
   where
     open Monoid M
